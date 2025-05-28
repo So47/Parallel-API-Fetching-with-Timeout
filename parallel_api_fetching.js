@@ -35,7 +35,8 @@ async function firstSuccessfulResponse(urls, timeoutMs) {
       .then(res => {
         if (res.status === 200) return res.text();
         else return Promise.reject('Non-200 status');
-      })
+      }).catch((err) => Promise.reject(err)) // Propagate fetch errors as rejections
+
   );
 
   // wait for the first fulfilled promise or reject if all fail
